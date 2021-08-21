@@ -6,6 +6,7 @@ import { HashRouter as Router, Switch, Route } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import { SidebarData } from './components/SidebarData';
 import DemoContent from './pages/DemoContent';
+import { MathTest } from './components/MathTest';
 
 function App() {
     return (
@@ -23,6 +24,7 @@ function App() {
                 }
             </Switch>
         </Router>
+        // <MathTest />
     );
 }
 

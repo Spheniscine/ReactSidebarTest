@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Math from './Math';
 
-function MathTest() {
+export function MathTest() {
     const [count, setCount] = useState(0)
   
     const result = ["1", "i", "-1", "-i"][count % 4]

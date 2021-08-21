@@ -1,4 +1,5 @@
 import React, { PureComponent, createRef } from 'react';
+import { MathJaxContext } from './MathJax';
 
 enum MathDisplayType {
     Inline,
@@ -13,13 +14,12 @@ interface MathProps {
 
 export class Math extends PureComponent<MathProps, {}> {
     static DOM_CLASS = "math"
-    static mathJaxState = (window as any).__MathJax_State__
 
     static defaultProps = {
         displayType: MathDisplayType.DisplayStyle
     }
 
-    private promise: Promise<any> = Math.mathJaxState.promise
+    private jax = new MathJaxContext()
 
     private spanRef = createRef<HTMLElement>()
 
@@ -30,8 +30,7 @@ export class Math extends PureComponent<MathProps, {}> {
     private loadTex() {
         const element = this.spanRef.current
         if(element == null) return
-        this.promise = this.promise.then (() => {
-            const mathJax = (window as any).MathJax
+        this.jax.use ((mathJax) => {
             mathJax.typesetClear([element])
             let text = ""
             text += this.props.displayType === MathDisplayType.Display ? "\\[" : "\\("
@@ -49,8 +48,7 @@ export class Math extends PureComponent<MathProps, {}> {
     componentWillUnmount() {
         const element = this.spanRef.current
         if(element == null) return
-        this.promise = this.promise.then (() => {
-            const mathJax = (window as any).MathJax
+        this.jax.use ((mathJax) => {
             mathJax.typesetClear([element])
         })
     }
