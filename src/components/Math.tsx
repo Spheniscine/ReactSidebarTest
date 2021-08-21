@@ -13,15 +13,15 @@ interface MathProps {
 
 export class Math extends PureComponent<MathProps, {}> {
     static DOM_CLASS = "math"
-    static MathJaxState = (window as any).__MathJax_State__
+    static mathJaxState = (window as any).__MathJax_State__
 
     static defaultProps = {
         displayType: MathDisplayType.DisplayStyle
     }
 
-    private promise: Promise<any> = Math.MathJaxState.promise
+    private promise: Promise<any> = Math.mathJaxState.promise
 
-    private spanRef = createRef<HTMLSpanElement>()
+    private spanRef = createRef<HTMLElement>()
 
     render() {
         return <span className={Math.DOM_CLASS} ref={this.spanRef} />
